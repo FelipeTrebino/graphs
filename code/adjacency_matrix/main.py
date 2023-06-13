@@ -6,6 +6,7 @@ if __name__ == '__main__':
 
     grafo = Grafo(direcional=True)
     
+    """
     grafo.adicionarVertice('A')
     grafo.adicionarVertice('B')
     grafo.adicionarVertice('C')
@@ -33,5 +34,5 @@ if __name__ == '__main__':
     nx.draw_networkx(G, pos)
     plt.axis('off')
     plt.show()
-
+    """
     
