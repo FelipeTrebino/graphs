@@ -41,6 +41,8 @@ class Vertice:
         return False
     
 # *******************************************************
+    def getGrau(self) -> int:
+        return len(self._adjacentes)
         
     
 if __name__ == '__main__':
