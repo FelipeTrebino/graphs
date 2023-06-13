@@ -1,18 +1,17 @@
-from Aresta import Aresta
 from Vertice import Vertice
 
 class Grafo:
     
 # *******************************************************
     def __init__(self, direcional = False):
-        self._vertices = []
+        self._vertices = {}
         self._direcional = direcional
 
 # *******************************************************
     def adicionarVertice(self, value):
         if self.encontraVertice(value) is None:
             vertice = Vertice(value)
-            self._vertices.append(vertice)
+            self._vertices[value] = vertice
 
 # *******************************************************
     def removeVertice(self, value) -> bool:
@@ -20,17 +19,16 @@ class Grafo:
         if vertice is not None:
             for v in vertice.getAdjacentes():
                 v.removeVerticeAdj(vertice)
-            self._vertices.remove(vertice)
+            self._vertices.pop(value)
             return True
         return False
 
 
 # *******************************************************
     def encontraVertice(self, value) -> Vertice|None:
-        for v in self._vertices:
-            if v.getValue() == value:
-                return v
-        return None
+        if value in self._vertices:
+            return self._vertices.get(value)
+        return None 
 
 # *******************************************************
     def adicionarAresta(self, value1, value2):
@@ -68,13 +66,13 @@ class Grafo:
     def getVertices(self) -> list:
         vertices = []
         for v in self._vertices:
-            vertices.append(v.getValue())
+            vertices.append(v)
         return vertices
 
 # *******************************************************
     def getArestas(self) -> list:
         arestas = []
-        for v in self._vertices:
+        for v in self._vertices.values():
             for a in v.getAdjacentes():
                 if not self.isDirecional():
                     if (a.getValue(),v.getValue()) not in arestas: 
@@ -104,29 +102,33 @@ class Grafo:
 # *******************************************************
     def getGrauMedio(self):
         soma = 0
-        for v in self._vertices:
+        for v in self._vertices.values():
             soma += v.getGrau()
         return soma/len(self.getVertices())
     
 # *******************************************************    
     def getGrauMinimo(self):
         if len(self._vertices) > 0:
-            grau_minimo = self._vertices[0].getGrau()
-            for i in range(1,len(self._vertices)):
-                v = self._vertices[i]
-                if v.getGrau() < grau_minimo:
-                    grau_minimo = v.getGrau() 
+            grau_minimo = None
+            for v in self._vertices.values():
+                if grau_minimo == None:
+                    grau_minimo = v.getGrau()
+                else:
+                    if v.getGrau() < grau_minimo:
+                        grau_minimo = v.getGrau() 
             return grau_minimo
         return 0
 
 # *******************************************************    
     def getGrauMaximo(self):
         if len(self._vertices) > 0:
-            grau_maximo = self._vertices[0].getGrau()
-            for i in range(1,len(self._vertices)):
-                v = self._vertices[i]
-                if v.getGrau() > grau_maximo:
-                    grau_maximo = v.getGrau() 
+            grau_maximo = None
+            for v in self._vertices.values():
+                if grau_maximo == None:
+                    grau_maximo = v.getGrau()
+                else:
+                    if v.getGrau() > grau_maximo:
+                        grau_maximo = v.getGrau() 
             return grau_maximo
         return 0
 

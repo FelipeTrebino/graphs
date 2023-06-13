@@ -10,10 +10,6 @@ class Vertice:
     def getValue(self):
         return self._value
 
-# *******************************************************    
-    def setValue(self, value):
-        self._value = value
-
 # *******************************************************
     def getAdjacentes(self) -> list:
         return self._adjacentes
