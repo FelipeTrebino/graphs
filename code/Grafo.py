@@ -96,25 +96,61 @@ class Grafo:
         for a in self.getArestas():
             outStr += f"{a}, "
         outStr = outStr[0:-2] + "]"
+        outStr += f"\nGrau médio: {self.getGrauMedio()}"
+        outStr += f"\nGrau mínimo: {self.getGrauMinimo()}"
+        outStr += f"\nGrau máximo: {self.getGrauMaximo()}"
         return outStr
 
 # *******************************************************
+    def getGrauMedio(self):
+        soma = 0
+        for v in self._vertices:
+            soma += v.getGrau()
+        return soma/len(self.getVertices())
+    
+# *******************************************************    
+    def getGrauMinimo(self):
+        if len(self._vertices) > 0:
+            grau_minimo = self._vertices[0].getGrau()
+            for i in range(1,len(self._vertices)):
+                v = self._vertices[i]
+                if v.getGrau() < grau_minimo:
+                    grau_minimo = v.getGrau() 
+            return grau_minimo
+        return 0
 
+# *******************************************************    
+    def getGrauMaximo(self):
+        if len(self._vertices) > 0:
+            grau_maximo = self._vertices[0].getGrau()
+            for i in range(1,len(self._vertices)):
+                v = self._vertices[i]
+                if v.getGrau() > grau_maximo:
+                    grau_maximo = v.getGrau() 
+            return grau_maximo
+        return 0
+
+# *******************************************************
 if __name__ == '__main__':
 
     grafo = Grafo()
     grafo.adicionarVertice('A')
     grafo.adicionarVertice('B')
     grafo.adicionarVertice('C')
+    grafo.adicionarVertice('D')
 
     grafo.adicionarAresta('A', 'B')
+    grafo.adicionarAresta('B', 'A')
     grafo.adicionarAresta('B', 'C')
+    grafo.adicionarAresta('D','A')
+    grafo.adicionarAresta('D','B')
+    grafo.adicionarAresta('D','C')
 
-    print(f"Grafo inicial:\n{grafo}")
+
+    print(f"Grafo inicial:\n\n{grafo}")
 
     grafo.removeAresta('A','B')
-    print(f"\nGrafo removendo aresta ('A','B'):\n{grafo}")
+    print(f"\nGrafo removendo aresta ('A','B'):\n\n{grafo}")
 
-    grafo.adicionarAresta('A', 'B')
     grafo.removeVertice('A')
-    print(f"\nGrafo removendo vertice A:\n{grafo}")
+    print(f"\nGrafo removendo vertice A:\n\n{grafo}")
