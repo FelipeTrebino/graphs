@@ -208,7 +208,20 @@ class Grafo:
         return 0
 
 # *******************************************************
+    def getPesoAresta(self, value1, value2) -> None|int :
+        vertice_pos1 = self.encontraVerticePos(value1)
+        vertice_pos2 = self.encontraVerticePos(value2)
 
+        if vertice_pos1 is not None and vertice_pos2 is not None:
+            if self._peso and self._arestas[vertice_pos1][vertice_pos2] is not None:
+                return self._arestas[vertice_pos1][vertice_pos2]
+            if not self._peso and self._arestas[vertice_pos1][vertice_pos2] == 1:
+                return 1
+        None
+
+
+
+# *******************************************************
 
 if __name__ == '__main__':
 
@@ -265,3 +278,5 @@ if __name__ == '__main__':
     print(f"\nGrau Médio: {grafo.getGrauMedio()}" )
     print(f"\nGrau Máximo: {grafo.getGrauMaximo()}" )
     print(f"\nGrau Mínimo: {grafo.getGrauMinimo()}" )
+    
+    print(f"\nPeso Aresta ('B','C'): {grafo.getPesoAresta('B','C')}")
