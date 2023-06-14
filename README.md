@@ -1,6 +1,6 @@
 # Representações computacionais de grafos
 
-Este repositório possui 2 implementações diferentes de Grafos, cada uma com uma representação computacional diferente de grafos.
+Este repositório possui duas implementações diferentes de Grafos, cada uma com uma representação computacional diferente de grafos.
 
 1. **Lista de adjacências:** Uma lista de adjacências é uma maneira simples de representar um grafo como uma lista de vértices. Consiste em um array de listas de tamanho |V| = n, em que cada lista do array representa um vértice e cada elemento da lista representa um vértice com o qual ele forma uma aresta. 
 2. **Matriz de adjacências:** Uma matriz de adjacência é uma matriz bidimensional de dimensão |V| x |V| que representa o grafo mapeando o valor 1 na posição (i,j) se houver uma aresta do vértice i para o vértice j, e o valor 0,  caso esta aresta não exista. 
