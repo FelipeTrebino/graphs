@@ -64,7 +64,7 @@ Da mesma forma que a implementação anterior, para instanciar um objeto do tipo
 
     grafo = Grafo()
 
-Como padrão, o parâmetro *direcional* e *peso* possuem o valor *False*.
+Como padrão, o parâmetros *direcional* e *peso* possuem o valor *False*.
 
 ## Como utilizar
 
