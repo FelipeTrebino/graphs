@@ -3,51 +3,75 @@ from Vertice import Vertice
 class Grafo:
     
 # *******************************************************
+    # Construtor da classe grafo, tem como valor padrão para direcional e peso (False)
+    # direcional indica se o grafo é direcional e peso se as arestas do grafo possuem peso
     def __init__(self, direcional = False, peso = False):
-        self._vertices = []
-        self._arestas = []
-        self._arestas_indices = {}
-        self._direcional = direcional
-        self._peso = peso
+        self._vertices = [] # Lista de vértices do grafo
+        self._arestas = [] # Matriz de arestas do grafo
+        self._arestas_indices = {} # Dicionário com os valores associados dos vértices que 
+                                   # apontam ao indice do vértice equivalente na matriz (coluna) e lista de vértices
+        self._direcional = direcional # Indica se o grafo é direcional
+        self._peso = peso # Indica se o grafo possue peso nas arestas
 
 # *******************************************************
+    # Adiciona um vértice à lista de vértices e uma nova coluna e linha à matriz de adjacências, complexidade O(n) 
     def adicionarVertice(self, value):
         if self.encontraVertice(value) is None:
+            # Adiciona o vértice na lista de vértices
             self._vertices.append(Vertice(value))
+            # Adiciona uma linha para para coluna da matriz
             for i in range(len(self._arestas)):
                 row = self._arestas[i]
+                # Caso o grafo possua peso nas arestas, None indicara a ausência de adjacência na matriz
                 if self._vertices[i] is None or self._peso:
                     row.append(None)
                 else:
+                    # Caso o grafo nao seja direcional, o número 0 indica a ausência de adjacência na matriz
                     row.append(0)
+            # Adiciona uma nova coluna na matriz de adjacências de acordo com o tipo de grafo
             if self._peso:
                 self._arestas.append([None]*(len(self._arestas)+1))
             else:
                 self._arestas.append([0]*(len(self._arestas)+1))
                 for i in range(len(self._vertices)):
+                    # Verifica se a linha específica existe, pelo fato de vértice poderem ser apagados
                     if self._vertices[i] is None:
                         self._arestas[len(self._vertices)-1][i] = None
             self._arestas_indices[value] = len(self._arestas) - 1
 
 # *******************************************************
+    # Remove um vértice da lista de vértices e da matriz, como não podemos retirar linhas e colunas,
+    # apagamos a referência do dicionário, mudamos todos os valores de adjacência para None e apontamos
+    #  o objeto associado na lista de vértices para None, complexidade O(n)  
     def removeVertice(self, value) -> bool:
+        # Verifica se o vértice existe na matriz
         if value in self._arestas_indices:
+            # Armazena a posição do vértice na matriz e lista de vértices
             vertice_indice = self.encontraVerticePos(value)
+            # Muda a linha equivalente ao vértice na matriz para None
             for row in self._arestas:
                 row[vertice_indice] = None
+            # Muda sua própria coluna na matriz para Nona 
             for a in range(len(self._arestas[vertice_indice])):
                 self._arestas[vertice_indice][a] = None
+            # Retira o vértice do dicionário de indices
             self._arestas_indices.pop(value)
+            # Aponta o índice equivalente ao vértice para None
             self._vertices[vertice_indice] = None
         return False
 
 # *******************************************************
+    # Encontra o vértice através de seu valor e retorna o objeto da lista de vértices, complexidade O(n)
     def encontraVertice(self, value) -> Vertice|None:
         if value in self._arestas_indices:
             return self._vertices[self._arestas_indices.get(value)]
         return None 
 
 # *******************************************************
+    # Adiciona uma aresta na matriz de adjacências e adiciona um novo vértice caso o valor associado não 
+    # seja correspondente a nenhum vértice existente, adiciona peso as arestas, caso o atributo peso seja True
+    # Se o grafo for não direcional, o valor da adjacência é adicionado em ambas colunas dos vértices
+    # complexidade O(n)
     def adicionarAresta(self, value1, value2, peso = None):
         vertice1 = self.encontraVerticePos(value1)
         vertice2 = self.encontraVerticePos(value2)
@@ -55,6 +79,7 @@ class Grafo:
         if vertice1 is None:
             self.adicionarVertice(value1)
             vertice1 = self.encontraVerticePos(value1)
+
         if vertice2 is None:
             self.adicionarVertice(value2)
             vertice2 = self.encontraVerticePos(value2)
@@ -70,12 +95,14 @@ class Grafo:
             self._arestas[vertice2][vertice1] = peso
 
 # ******************************************************* 
+    # Retorna o índice do vértice na matriz de adjacências e lista de vértices através do seu valor, complexidade O(n)
     def encontraVerticePos(self, value) -> int|None:
         if value in self._arestas_indices:
             return self._arestas_indices.get(value)
         return None
 
 # *******************************************************
+    #Remove uma aresta da matriz de adjacências, complexidade O(n)
     def removeAresta(self, value1, value2) -> bool:
         vertice1 = self.encontraVerticePos(value1)
         vertice2 = self.encontraVerticePos(value2)
@@ -91,6 +118,7 @@ class Grafo:
         return False
 
 # *******************************************************
+    # Retorna uma string para visualização do grafo, complexidade O(n^2)
     def __str__(self) -> str:
         outStr = "Vértices: ["
         for value, index in self._arestas_indices.items():
@@ -110,17 +138,20 @@ class Grafo:
         return outStr
 
 # *******************************************************
+    # Retorna uma lista com os valores dos vértices do grafo, complexidade O(n)  
     def getVertices(self) -> list:
         vertices = []
-        for v in self._vertices.values():
-            vertices.append(v.getValue())
+        for v in self._arestas_indices:
+            vertices.append(v)
         return vertices
      
 # *******************************************************
+    # Retorna uma lista com os pares de adjacência dos vértices (arestas), complexidade O(n^2)
     def getArestas(self) -> list:
         arestas = []
-        for v in self._arestas():
-            for a in v.getAdjacentes():
+        for val,i in self._arestas_indices.items(): 
+            v = self._vertices[i]
+            for a in self.obterAdjacentes(val):
                 if not self.isDirecional():
                     if (a.getValue(),v.getValue()) not in arestas: 
                         arestas.append((v.getValue(),a.getValue()))
@@ -129,6 +160,7 @@ class Grafo:
         return arestas
 
 # *******************************************************    
+    # Retorna os vértices adjacentes de um determinado vértice, complexidade O(n)
     def obterAdjacentes(self, value) -> list:
         v_pos = self.encontraVerticePos(value)
         vertices = []
@@ -142,14 +174,17 @@ class Grafo:
         return vertices
 
 # *******************************************************
+    # Retorna se o grafo é direcional, complexidade O(1)
     def isDirecional(self) -> bool:
         return self._direcional
 
 # *******************************************************
+    # Retorna se o grafo possui peso na arestas, complexidade O(1)
     def isWeighted(self) -> bool:
         return self._peso
 
 # *******************************************************
+    # Retorna o grau de um determinado vértice, complexidade O(n)
     def getGrauVertice(self, value) -> int:
         v_pos = self.encontraVerticePos(value)
         vertices = 0
@@ -163,6 +198,7 @@ class Grafo:
         return vertices
 
 # *******************************************************
+    # Retorna se dois vértices são adjacentes, complexidade O(n)
     def isAdjacente(self, value1, value2) -> bool:
         vertice_pos1 = self.encontraVerticePos(value1)
         vertice_pos2 = self.encontraVerticePos(value2)
@@ -175,6 +211,7 @@ class Grafo:
         return False
 
 # *******************************************************
+    # Retorna o grau médio dos vértices, complexidade O(n)
     def getGrauMedio(self):
         soma = 0
         for v in self._arestas_indices:
@@ -182,6 +219,7 @@ class Grafo:
         return soma/len(self._arestas_indices)
     
 # *******************************************************    
+    # Retorna o grau mínimo dos vértices, complexidade O(n)
     def getGrauMinimo(self):
         if len(self._arestas_indices) > 0:
             grau_minimo = None
@@ -195,6 +233,7 @@ class Grafo:
         return 0
 
 # *******************************************************    
+    # Retorna o grau máximo dos vértices, complexidade O(n)
     def getGrauMaximo(self):
         if len(self._arestas_indices) > 0:
             grau_maximo = None
@@ -208,6 +247,7 @@ class Grafo:
         return 0
 
 # *******************************************************
+    # Retorna o peso de uma determinada aresta, complexidade O(n)
     def getPesoAresta(self, value1, value2) -> None|int :
         vertice_pos1 = self.encontraVerticePos(value1)
         vertice_pos2 = self.encontraVerticePos(value2)
@@ -222,10 +262,10 @@ class Grafo:
 
 
 # *******************************************************
-
+# Programa de testes da classe grafo
 if __name__ == '__main__':
 
-    grafo = Grafo(peso=False)
+    grafo = Grafo(peso=True)
 
     grafo.adicionarVertice('A')
     grafo.adicionarVertice('B')

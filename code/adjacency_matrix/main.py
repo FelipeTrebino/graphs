@@ -4,13 +4,17 @@ from Grafo import Grafo
 
 if __name__ == '__main__':
 
-    grafo = Grafo(direcional=True)
+    grafo = Grafo(direcional=False)
     
-    """
     grafo.adicionarVertice('A')
     grafo.adicionarVertice('B')
     grafo.adicionarVertice('C')
     grafo.adicionarVertice('D')
+    grafo.adicionarVertice('E')
+    grafo.adicionarVertice('F')
+    grafo.adicionarVertice('G')
+    grafo.adicionarVertice('H')
+    grafo.adicionarVertice('I')
 
     grafo.adicionarAresta('A', 'B')
     grafo.adicionarAresta('B', 'A')
@@ -18,6 +22,17 @@ if __name__ == '__main__':
     grafo.adicionarAresta('D','A')
     grafo.adicionarAresta('D','B')
     grafo.adicionarAresta('D','C')
+    grafo.adicionarAresta('D','E')
+    grafo.adicionarAresta('D','F')
+    grafo.adicionarAresta('D','G')
+    grafo.adicionarAresta('D','H')
+    grafo.adicionarAresta('D','C')
+    grafo.adicionarAresta('C','I')
+    grafo.adicionarAresta('I','F')
+    grafo.adicionarAresta('H','G')
+    grafo.adicionarAresta('G','E')
+    grafo.adicionarAresta('E','A')
+    grafo.adicionarAresta('F','H')
 
     edges = grafo.getArestas()
     nodes = grafo.getVertices()
@@ -34,5 +49,5 @@ if __name__ == '__main__':
     nx.draw_networkx(G, pos)
     plt.axis('off')
     plt.show()
-    """
+    
     
