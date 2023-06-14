@@ -4,7 +4,7 @@ from Grafo import Grafo
 
 if __name__ == '__main__':
 
-    grafo = Grafo(direcional=False)
+    grafo = Grafo(direcional=True)
     
     grafo.adicionarVertice('A')
     grafo.adicionarVertice('B')
