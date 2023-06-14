@@ -130,6 +130,8 @@ Os códigos pode ser acessado no caminho **/code/adjacency_list** e **/code/adja
 
 Através da biblioteca *matplotlib.pyplot* podemos instânciar um grafo e o visualizar gráficamente através da execução dos programas **main.py**
 
+<img src="https://github.com/FelipeTrebino/graphs/blob/main/Grafo.png" width="400" alt = "exemplo grafo">
+
 ## Referencias:
 
 [1] Th. H. Cormen, Ch. E. Leiserson, R. L. Rivest, C. Stein: **Introduction to Algorithms**. 2009
