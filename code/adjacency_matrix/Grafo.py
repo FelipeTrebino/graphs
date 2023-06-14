@@ -152,11 +152,19 @@ class Grafo:
         for val,i in self._arestas_indices.items(): 
             v = self._vertices[i]
             for a in self.obterAdjacentes(val):
-                if not self.isDirecional():
-                    if (a.getValue(),v.getValue()) not in arestas: 
-                        arestas.append((v.getValue(),a.getValue()))
+                if not self.isWeighted():
+                    if not self.isDirecional():
+                        if (a.getValue(),v.getValue()) not in arestas: 
+                            arestas.append((v.getValue(),a.getValue()))
+                    else:
+                        arestas.append((v.getValue(),a.getValue())) 
                 else:
-                   arestas.append((v.getValue(),a.getValue())) 
+                    peso = self._arestas[i][self.encontraVerticePos(a.getValue())]
+                    if not self.isDirecional():
+                        if (a.getValue(),v.getValue(), peso) not in arestas: 
+                            arestas.append((v.getValue(),a.getValue(),peso))
+                    else:
+                        arestas.append((v.getValue(),a.getValue(),peso)) 
         return arestas
 
 # *******************************************************    
@@ -320,3 +328,5 @@ if __name__ == '__main__':
     print(f"\nGrau Mínimo: {grafo.getGrauMinimo()}" )
     
     print(f"\nPeso Aresta ('B','C'): {grafo.getPesoAresta('B','C')}")
+
+    print([str(a) for a in grafo.getArestas()])

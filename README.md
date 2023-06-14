@@ -132,6 +132,7 @@ Através da biblioteca *matplotlib.pyplot* podemos instânciar um grafo e o visu
 
 <img src="https://raw.githubusercontent.com/FelipeTrebino/graphs/main/Grafo.png" width="600" alt="exemplo grafo1">
 <img src="https://raw.githubusercontent.com/FelipeTrebino/graphs/main/Grafo2.png" width="600" alt="exemplo grafo2">
+<img src="https://raw.githubusercontent.com/FelipeTrebino/graphs/main/Grafo3.png" width="600" alt="exemplo grafo3">
 ## Referencias:
 
 [1] Th. H. Cormen, Ch. E. Leiserson, R. L. Rivest, C. Stein: **Introduction to Algorithms**. 2009
