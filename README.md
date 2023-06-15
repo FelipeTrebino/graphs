@@ -31,7 +31,7 @@ Para a implementação de lista de adjacências, foi implementado duas classes: 
 
 A classe Vertice possui uma lista de adjacências, que inclui todos vértices adjacentes, foi implementado um construtor que recebe o valor como parâmetro obrigatório, getters e métodos para remover e adicionar vértice adjacentes, verificar de vértice é adjacente e um método para verifiar o grau do vértice.
 
-Apesar da bibliografia prever que complexidade para adicionar um vértice da lista de adjacências é `O(1)`, o sempre é verifica se o vértice já foi adicionado na lista, para evitar duplicidade, o que acarreta numa maior robustez da implementação, o que torna o a complexidade da operação `O(n)`, pois a lista passa a ser percorrida uma vez.
+Apesar da literatura prever que complexidade para adicionar um vértice da lista de adjacências é `O(1)`, o sempre é verifica se o vértice já foi adicionado na lista, para evitar duplicidade, o que acarreta numa maior robustez da implementação, o que torna o a complexidade da operação `O(n)`, pois a lista passa a ser percorrida uma vez.
 
 Já a classe Grafo possui apenas uma lista de vértices, e o parâmetro *direcional*, caso o objeto do tipo Grafo criado possua *arestas direcionadas*, passado no construtor, além dos métodos previstos no tópico de implementação.
 
@@ -56,7 +56,7 @@ Além disso, o classe grafo possui 2 atributos relacionados ao tipo de grafo, *d
 
 Esta implementação também possui todas as operações descritas no tópico de *implementação*.
 
-Como descrito na bibliografia, na implementação comum (sem peso), os valores preenchidos na matriz equivalem a existência ou ausência de adjacências entre os vértices, sendo 1 e 0 respectivamente. Já na implementação com peso, os valores preenchidos na matriz são equivalente ao peso atribuido, sendo 0 como valor padrão e `None` como ausência de adjacência. 
+Como descrito na literatura, na implementação comum (sem peso), os valores preenchidos na matriz equivalem a existência ou ausência de adjacências entre os vértices, sendo 1 e 0 respectivamente. Já na implementação com peso, os valores preenchidos na matriz são equivalente ao peso atribuido, sendo 0 como valor padrão e `None` como ausência de adjacência. 
 
 Uma informação relevante desta implementação é que a exclusão de um vértice, não pode acarretar na exclussão de uma linha e coluna da matriz, desta forma, a alternativa encontrada foi: Apagar a referência do dicionário `arestas_indices`, mudar todos os valores adjacência do vértice na matriz `arestas` para None e apontar o indice associado ao objeto na lista `vertices` para None, desta forma, apesar da matriz não mudar de tamanho, não temos mais a refência do vértice objeto grafo.  
 
