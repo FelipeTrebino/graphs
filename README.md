@@ -50,9 +50,9 @@ A classe Grafo nesta representação é responsável por armazenar a matriz que 
 
 - `arestas`: A matriz de adjacências dos vértices, é do tamanho N x N, tal que N é a quantidade de vértices.
 - `arestas_indices`: Um dicionário que possui como índice o valor de cada vértice, e armazena o índice equivalente ao vértice na matriz de adjacências.
-- `vertices`: Um lista que de objetos Vértice, que possui o índices equivalentes ao das colunas e linhas da matriz, tornando fácil o acesso dos objetos.
+- `vertices`: Um lista de objetos Vértice, que possui o índices equivalentes ao das colunas e linhas da matriz, tornando fácil o acesso dos objetos.
 
-Além disso, o classe grafo possui 2 atributos relacionados ao tipo de grado, *direcional*, como na implementação anterior, e *peso*, que diz respeito ao peso atribuito as arestas da matriz.
+Além disso, o classe grafo possui 2 atributos relacionados ao tipo de grafo, *direcional*, como na implementação anterior, e *peso*, que diz respeito ao peso atribuito às arestas da matriz.
 
 Esta implementação também possui todas as operações descritas no tópico de *implementação*.
 
